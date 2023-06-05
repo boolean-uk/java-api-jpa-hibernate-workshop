@@ -30,13 +30,13 @@ public class TeacherController {
     @GetMapping("/{id}")
     public ResponseEntity<Teacher> getTeacherById(@PathVariable int id) {
         Teacher teacher = null;
-        teacher = this.teacherRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found"));
+        teacher = this.teacherRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No teachers matching that id were found"));
         return ResponseEntity.ok(teacher);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Teacher> updateTeacher(@PathVariable int id, @RequestBody Teacher teacher) {
-        Teacher teacherToUpdate = this.teacherRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found"));
+        Teacher teacherToUpdate = this.teacherRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No teachers matching that id were found"));
 
         teacherToUpdate.setName(teacher.getName());
         teacherToUpdate.setSubject(teacher.getSubject());
@@ -47,7 +47,7 @@ public class TeacherController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Teacher> deleteTeacher(@PathVariable int id) {
-        Teacher teacherToDelete = this.teacherRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found"));
+        Teacher teacherToDelete = this.teacherRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No teachers matching that id were found"));
         this.teacherRepository.delete(teacherToDelete);
         return ResponseEntity.ok(teacherToDelete);
     }
