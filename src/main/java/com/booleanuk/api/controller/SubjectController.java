@@ -32,13 +32,13 @@ public class SubjectController {
     @GetMapping("/{id}")
     public ResponseEntity<Subject> getSubjectById(@PathVariable int id) {
         Subject subject = null;
-        subject = this.subjectRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No teachers matching that id were found"));
+        subject = this.subjectRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No subject matching that id were found"));
         return ResponseEntity.ok(subject);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Subject> updateTeacher(@PathVariable int id, @RequestBody Subject subject) {
-        Subject subjectToUpdate = this.subjectRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No teachers matching that id were found"));
+    public ResponseEntity<Subject> updateSubject(@PathVariable int id, @RequestBody Subject subject) {
+        Subject subjectToUpdate = this.subjectRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No subject matching that id were found"));
 
         subjectToUpdate.setTitle(subject.getTitle());
         subjectToUpdate.setLevel(subject.getLevel());
@@ -46,9 +46,9 @@ public class SubjectController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Subject> deleteTeacher(@PathVariable int id) {
-        Subject teacherToDelete = this.subjectRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No teachers matching that id were found"));
-        this.subjectRepository.delete(teacherToDelete);
-        return ResponseEntity.ok(teacherToDelete);
+    public ResponseEntity<Subject> deleteSubject(@PathVariable int id) {
+        Subject subjectToDelete = this.subjectRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No subject matching that id were found"));
+        this.subjectRepository.delete(subjectToDelete);
+        return ResponseEntity.ok(subjectToDelete);
     }
 }
