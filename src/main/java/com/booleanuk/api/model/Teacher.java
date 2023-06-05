@@ -3,23 +3,23 @@ package com.booleanuk.api.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "employees")
-public class Employee {
+@Table(name = "teachers")
+public class Teacher {
     //region // FIELDS //
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "first_name")
-    private String firstName;
+    @Column(name = "name", nullable = false)
+    private String name;
 
-    @Column(name = "last_name")
-    private String lastName;
-
-    @Column(name = "location")
+    @Column(name = "location", nullable = false)
     private String location;
 
-    @Column(name = "email_address")
+    @Column(name = "subject", nullable = false)
+    private String subject;
+
+    @Column(name = "email_address", nullable = false)
     private String email;
     //endregion
 
@@ -27,52 +27,47 @@ public class Employee {
     public int getId() {
         return this.id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return this.firstName;
+    public String getName() {
+        return this.name;
     }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return this.lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getLocation() {
         return this.location;
     }
-
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getSubject() {
+        return this.subject;
+    }
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
     public String getEmail() {
         return this.email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
     //endregion
 
-    public Employee() {
+    public Teacher() {
 
     }
-    public Employee(String firstName, String lastName, String location, String email) {
+    public Teacher(String name, String location, String subject, String email) {
         super();
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name;
         this.location = location;
+        this.subject = subject;
         this.email = email;
     }
 }
