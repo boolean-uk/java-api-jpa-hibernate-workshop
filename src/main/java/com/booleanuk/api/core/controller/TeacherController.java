@@ -1,7 +1,7 @@
-package com.booleanuk.api.controller;
+package com.booleanuk.api.core.controller;
 
-import com.booleanuk.api.model.Teacher;
-import com.booleanuk.api.repository.TeacherRepository;
+import com.booleanuk.api.core.model.Teacher;
+import com.booleanuk.api.core.repository.TeacherRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -42,7 +42,10 @@ public class TeacherController {
         if (requestedTeacher.isEmpty()) return null;
 
         Teacher teacherToUpdate = requestedTeacher.get();
-        teacher.update(teacherToUpdate);
+        teacherToUpdate.setName(teacher.getName());
+        teacherToUpdate.setLocation(teacher.getLocation());
+        teacherToUpdate.setSubject(teacher.getSubject());
+        teacherToUpdate.setEmail(teacher.getEmail());
 
         return new ResponseEntity<>(this.teacherRepository.save(teacherToUpdate), HttpStatus.CREATED);
     }

@@ -1,9 +1,9 @@
-package com.booleanuk.api.model;
+package com.booleanuk.api.core.model;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "employees")
+@Table(name = "core_employees")
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
