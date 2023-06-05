@@ -17,14 +17,19 @@ public class EmployeeController {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    @GetMapping
-    public List<Employee> getAllEmployees() {
-        return this.employeeRepository.findAll();
-    }
+    // ------------ ENDPOINTS ------------ //
 
+    //region // POST //
     @PostMapping
     public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
         return new ResponseEntity<Employee>(this.employeeRepository.save(employee), HttpStatus.CREATED);
+    }
+    //endregion
+
+    //region // GET //
+    @GetMapping
+    public List<Employee> getAllEmployees() {
+        return this.employeeRepository.findAll();
     }
 
     @GetMapping("/{id}")
@@ -33,7 +38,9 @@ public class EmployeeController {
         employee = this.employeeRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found"));
         return ResponseEntity.ok(employee);
     }
+    //endregion
 
+    //region // PUT //
     @PutMapping("/{id}")
     public ResponseEntity<Employee> updateEmployee(@PathVariable int id, @RequestBody Employee employee) {
         Employee employeeToUpdate = this.employeeRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found"));
@@ -44,11 +51,14 @@ public class EmployeeController {
         employeeToUpdate.setLocation(employee.getLocation());
         return new ResponseEntity<Employee>(this.employeeRepository.save(employeeToUpdate), HttpStatus.CREATED);
     }
+    //endregion
 
+    //region // DELETE //
     @DeleteMapping("/{id}")
     public ResponseEntity<Employee> deleteEmployee(@PathVariable int id) {
         Employee employeeToDelete = this.employeeRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found"));
         this.employeeRepository.delete(employeeToDelete);
         return ResponseEntity.ok(employeeToDelete);
     }
+    //endregion
 }
