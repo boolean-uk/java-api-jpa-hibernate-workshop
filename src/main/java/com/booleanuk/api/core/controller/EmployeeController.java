@@ -1,7 +1,7 @@
-package com.booleanuk.api.controller;
+package com.booleanuk.api.core.controller;
 
-import com.booleanuk.api.model.Employee;
-import com.booleanuk.api.repository.EmployeeRepository;
+import com.booleanuk.api.core.model.Employee;
+import com.booleanuk.api.core.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
