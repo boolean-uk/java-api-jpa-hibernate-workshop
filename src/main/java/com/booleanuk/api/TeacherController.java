@@ -21,6 +21,12 @@ public class TeacherController {
         return this.teacherRepository.findAll();
     }
 
+    @GetMapping("/{id}")
+    public Teacher getTeacherById(@PathVariable int id) {
+        return this.teacherRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found"));
+    }
+
     @PostMapping
     public ResponseEntity<Teacher> createTeacher(@RequestBody Teacher teacher) {
         return new ResponseEntity<>(this.teacherRepository.save(teacher), HttpStatus.CREATED);
