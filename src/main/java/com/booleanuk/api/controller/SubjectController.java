@@ -43,7 +43,7 @@ public class SubjectController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Subject> updateSubject(@PathVariable int id, @RequestBody Subject subject) {
+    public ResponseEntity<Subject> updateSubjectById(@PathVariable int id, @RequestBody Subject subject) {
         if (subject.getTitle() == null || subject.getLevel() == null ) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST
                     , "Could not update the subjects's details, please check all required fields");
@@ -58,7 +58,7 @@ public class SubjectController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Subject> deleteSubject(@PathVariable int id) {
+    public ResponseEntity<Subject> deleteSubjectbyId(@PathVariable int id) {
         Subject subjectToDelete = this.subjectRepository.findById(id).orElseThrow(()
                 -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No subjects matching that id were found"));
         this.subjectRepository.delete(subjectToDelete);

@@ -43,7 +43,7 @@ public class TeacherController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Teacher> updateTeacher(@PathVariable int id, @RequestBody Teacher teacher) {
+    public ResponseEntity<Teacher> updateTeacherById(@PathVariable int id, @RequestBody Teacher teacher) {
         if (teacher.getName() == null || teacher.getLocation() == null
                 || teacher.getSubject() == null || teacher.getEmail() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST
@@ -61,7 +61,7 @@ public class TeacherController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Teacher> deleteTeacher(@PathVariable int id) {
+    public ResponseEntity<Teacher> deleteTeacherById(@PathVariable int id) {
         Teacher teacherToDelete = this.teacherRepository.findById(id).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "No teachers matching that id were found"));
         this.teacherRepository.delete(teacherToDelete);
