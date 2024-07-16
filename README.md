@@ -29,59 +29,72 @@ In the folder open the `build.gradle` file, it will currently look like this:
 
 ```groovy
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.1.0'
-	id 'io.spring.dependency-management' version '1.1.0'
+    id 'java'
+    id 'org.springframework.boot' version '3.3.1'
+    id 'io.spring.dependency-management' version '1.1.5'
 }
 
 group = 'com.booleanuk'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	runtimeOnly 'org.postgresql:postgresql'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'org.postgresql:postgresql'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }
+
 ```
 
-Change the line that currently says `runtimeonly 'org.postgresql:postgresql` to read `implementation 'org.postgresql:postgresql:42.6.0'` instead (which is what we used when we were talking directly to the database from Java in a previous session). After the change the `build.gradle` file will look like this:
+Change the line that currently says `runtimeonly 'org.postgresql:postgresql` to read `implementation 'org.postgresql:postgresql:42.7.3'` instead (which is what we used when we were talking directly to the database from Java in a previous session). After the change the `build.gradle` file will look like this:
 
 ```groovy
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.1.0'
-	id 'io.spring.dependency-management' version '1.1.0'
+    id 'java'
+    id 'org.springframework.boot' version '3.3.1'
+    id 'io.spring.dependency-management' version '1.1.5'
 }
 
 group = 'com.booleanuk'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    implementation 'org.postgresql:postgresql:42.6.0'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    implementation 'org.postgresql:postgresql:42.7.3'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }
 ```
 
@@ -128,7 +141,7 @@ spring:
     show-sql: true
 ```
 
-You need to update the `DATABASE_URL`, `DATABASE_USERNAME` and `DATABASE_PASSWORD` to match your settings on ElephantSQL.
+You need to update the `DATABASE_URL`, `DATABASE_USERNAME` and `DATABASE_PASSWORD` to match your settings on Neon.
 
 ## An Employees API
 
@@ -136,9 +149,9 @@ We're going to create an API which manages Employees to begin with, but rather t
 
 The Employee table is going to have the following fields: id, firstName, lastName, location, and email.
 
-Clear out any legacy tables from your ElephantSQL instance, so that there is plenty of rooom to create new ones.
+Clear out any legacy tables from your Neon instance, so that there is plenty of room to create new ones.
 
-In the `com.boolean.api` package create a new package called `model` and add a class to it called Employee, this will work the same way that the classes we created last week, in that it will hold individual records from the database Employee table, but instead of us defining the table in the database separately, our tools will take this class, check if it exists in the database, and create it if it does not. If it exists in the database already, then it will use the pre-existing one.
+In the Java package that your application is in create a new package called `model` and add a class to it called Employee, this will work the same way that the classes we created last week, in that it will hold individual records from the database Employee table, but instead of us defining the table in the database separately, our tools will take this class, check if it exists in the database, and create it if it does not. If it exists in the database already, then it will use the pre-existing one.
 
 ```java
 package com.booleanuk.api.model;
@@ -220,7 +233,7 @@ public class Employee {
 
 `@Entity` tells the Java Persistence API which is now called Jakarta Persistence that this class is something it should be concerned with as it will map to some sort of database entity. The `@Table` and `@Column` annotations are used to show it that this is going to be a table with the columns labelled as shown in the annotations. If we did a Select query and received an `Employee` object back then the data from each field (column) would map across to the fields in the class. The `@Id` annotation tells it that the value contained in the `id` field will be the Primary Key for the object and `@GeneratedValue` part tells it that the value will be generated by the database.
 
-In the `com.booleanuk.api` package create a new package called repository and add a new Interface to it called `EmployeeRepository`. In that Interface add the following:
+In the package create a new package called repository and add a new Interface to it called `EmployeeRepository`. In that Interface add the following:
 
 ```java
 package com.booleanuk.api.repository;
