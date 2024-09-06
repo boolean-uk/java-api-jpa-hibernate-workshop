@@ -62,7 +62,7 @@ tasks.named('test') {
 
 ```
 
-Change the line that currently says `runtimeonly 'org.postgresql:postgresql` to read `implementation 'org.postgresql:postgresql:42.7.3'` instead (which is what we used when we were talking directly to the database from Java in a previous session). After the change the `build.gradle` file will look like this:
+Change the line that currently says `runtimeonly 'org.postgresql:postgresql` to read `implementation 'org.postgresql:postgresql:42.7.4'` instead (which is what we used when we were talking directly to the database from Java in a previous session). After the change the `build.gradle` file will look like this:
 
 ```groovy
 plugins {
@@ -88,7 +88,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    implementation 'org.postgresql:postgresql:42.7.3'
+    implementation 'org.postgresql:postgresql:42.7.4'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
@@ -106,7 +106,7 @@ In this project there is an `application.yml.example` file which includes some e
 
 ```bash
 ### User Defined ###
-src/main/resources/application.yml
+application.yml
 ```
 
 if you miss this step, then you risk sharing your actual settings with the world via GitHub.
