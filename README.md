@@ -293,7 +293,7 @@ public class EmployeeController {
 }
 ```
 
-The automagically created code provides the EmployeeRepository class with a `fineAll()` method that we can use without needing to write it.
+The automagically created code provides the EmployeeRepository class with a `findAll()` method that we can use without needing to write it.
 
 Run the code and test it works (you might want to manually add some entries to the database, so that something is returned).
 
